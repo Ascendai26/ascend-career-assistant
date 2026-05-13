@@ -45,7 +45,9 @@
     .result-card ul { padding-left: 20px; margin: 8px 0; }
     .job-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
     .job-links a, .restart-btn { text-decoration: none; background: #2563eb; color: white; border: none; padding: 11px 13px; border-radius: 13px; font-size: 13px; font-weight: 850; cursor: pointer; }
-    .restart-btn { background: #0f172a; }
+    .restart-btn { background: #0f172a; margin-top: 24px; display: inline-flex; align-items: center; justify-content: center; padding: 14px 20px; border-radius: 16px; box-shadow: 0 10px 24px rgba(0,0,0,0.15); }
+    .results-wrapper { margin-top: 18px; display: flex; flex-direction: column; gap: 18px; }
+    .restart-container { display: flex; justify-content: center; padding-top: 18px; border-top: 1px solid #e2e8f0; margin-top: 12px; }
     .hidden { display: none !important; }
     .home-page { min-height: 100vh; background: radial-gradient(circle at top left, #2563eb 0, transparent 30%), linear-gradient(135deg, #0f172a, #111827 45%, #1e3a8a); color: white; padding: 28px; }
     .home-nav { width: min(1180px, 94%); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
@@ -477,6 +479,18 @@
       }).sort((a, b) => b.score - a.score).slice(0, 3);
     }
 
+    function getMissingSkills(requiredSkills) {
+      const profileText = [
+        ...profile.skills,
+        ...profile.interests,
+        profile.background,
+        profile.workStyle
+      ].join(" ").toLowerCase();
+
+      const missing = requiredSkills.filter(skill => !profileText.includes(skill.toLowerCase()));
+      return missing.length ? missing : ["Your current profile already aligns strongly with this role."];
+    }
+
     function showResults() {
       const matches = calculateMatches();
       const bestScore = matches[0].score || 1;
@@ -487,8 +501,18 @@
           <div class="result-card">
             <h3>${match.title}</h3>
             <span class="score">${percent}% Match</span>
-            <p>This path fits your background, skills, and interests based on your conversation with Ascend.</p>
-            <ul>${match.gaps.map(gap => `<li>${gap}</li>`).join("")}</ul>
+            <p>This path fits your background, skills, and interests based on your conversation with Mira.</p>
+            <div style="margin-top:14px;">
+              <strong style="display:block; margin-bottom:8px; color:#0f172a;">Required Skills</strong>
+              <ul>${match.skills.map(skill => `<li>${skill}</li>`).join("")}</ul>
+            </div>
+            <div style="margin-top:14px;">
+              <strong style="display:block; margin-bottom:8px; color:#0f172a;">Skill Gaps (What you may need to improve)</strong>
+              <ul>${getMissingSkills(match.skills).map(skill => `<li>${skill}</li>`).join("")}</ul>
+            </div>
+            <div style="margin-top:14px;">
+              <strong style="display:block; margin-bottom:8px; color:#0f172a;">Suggested Improvements</strong>
+              <ul>${match.gaps.map(gap => `<li>${gap}</li>`).join("")}</ul>
             <div class="job-links">
               <a target="_blank" href="https://www.linkedin.com/jobs/search/?keywords=${encoded}">LinkedIn Jobs</a>
               <a target="_blank" href="https://www.indeed.com/jobs?q=${encoded}">Indeed Jobs</a>
@@ -499,8 +523,12 @@
       }).join("");
 
       addMessage(`
-        ${cards}
-        <button class="restart-btn" onclick="restartApp()">Start Over</button>
+        <div class="results-wrapper">
+          ${cards}
+          <div class="restart-container">
+            <button class="restart-btn" onclick="restartApp()">Start Over</button>
+          </div>
+        </div>
       `, "bot");
     }
 
