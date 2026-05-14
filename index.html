@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ascend | Meet Mira, Your AI Career Guide</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { min-height: 100vh; background: #070b18; color: #0f172a; }
+
+    .hidden { display: none !important; }
+
+    .home-page {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(37,99,235,0.55), transparent 28%),
+        radial-gradient(circle at 86% 18%, rgba(168,85,247,0.38), transparent 26%),
+        radial-gradient(circle at 50% 95%, rgba(14,165,233,0.22), transparent 32%),
+        linear-gradient(135deg, #070b18, #0f172a 42%, #172554);
+      color: white;
+      padding: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .home-page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+      pointer-events: none;
+    }
+
+    .home-nav, .home-hero, .home-features, .about-section, .credibility-section { position: relative; z-index: 1; }
+
+    .home-nav {
+      width: min(1180px, 94%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+    }
+
+    .home-logo { font-size: 31px; font-weight: 950; letter-spacing: -1.2px; }
+    .nav-links { display: flex; align-items: center; gap: 14px; }
+    .nav-links a { color: #dbeafe; text-decoration: none; font-weight: 750; font-size: 14px; }
+
+    .nav-btn, .primary-home-btn {
+      border: none;
+      background: linear-gradient(135deg, #ffffff, #dbeafe);
+      color: #1d4ed8;
+      padding: 13px 19px;
+      border-radius: 999px;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 14px 34px rgba(37,99,235,0.32);
+      transition: 0.22s ease;
+    }
+
+    .nav-btn:hover, .primary-home-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 42px rgba(37,99,235,0.42); }
+
+    .home-hero {
+      width: min(1180px, 94%);
+      margin: 76px auto 48px;
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      align-items: center;
+      gap: 52px;
+    }
+
+    .home-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.24);
+      padding: 9px 14px;
+      border-radius: 999px;
+      color: #dbeafe;
+      font-weight: 850;
+      font-size: 14px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(14px);
+    }
+
+    .home-content h1 {
+      font-size: clamp(46px, 7vw, 84px);
+      line-height: 0.96;
+      letter-spacing: -3.5px;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text { background: linear-gradient(135deg, #93c5fd, #ffffff, #c4b5fd); -webkit-background-clip: text; color: transparent; }
+
+    .home-content p {
+      color: #dbeafe;
+      font-size: 18px;
+      line-height: 1.75;
+      max-width: 680px;
+      margin-bottom: 32px;
+    }
+
+    .home-buttons { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .secondary-home-btn {
+      color: white;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.26);
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+      transition: 0.22s ease;
+    }
+    .secondary-home-btn:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+    .home-preview-card {
+      background: rgba(255,255,255,0.94);
+      color: #0f172a;
+      border-radius: 34px;
+      padding: 24px;
+      box-shadow: 0 35px 95px rgba(0,0,0,0.36);
+      border: 1px solid rgba(255,255,255,0.48);
+      position: relative;
+      animation: floatCard 4.5s ease-in-out infinite;
+    }
+
+    @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .home-preview-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.4), rgba(168,85,247,0.25), rgba(14,165,233,0.35));
+      z-index: -1;
+      filter: blur(12px);
+    }
+
+    .preview-header { display: flex; align-items: center; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid #e2e8f0; margin-bottom: 16px; }
+    .mira-avatar, .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 17px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 950;
+      box-shadow: 0 12px 26px rgba(37,99,235,0.3);
+    }
+    .preview-header h3 { font-size: 18px; }
+    .preview-header p { color: #64748b; font-size: 13px; margin-top: 3px; }
+    .preview-chat { padding: 13px 15px; border-radius: 18px; line-height: 1.5; font-size: 14px; margin: 12px 0; max-width: 88%; }
+    .bot-preview { background: #f1f5f9; border-bottom-left-radius: 5px; }
+    .user-preview { background: linear-gradient(135deg, #2563eb, #4f46e5); color: white; margin-left: auto; border-bottom-right-radius: 5px; }
+
+    .about-section, .credibility-section { width: min(1180px, 94%); margin: 70px auto 0; }
+    .about-container { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 22px; align-items: stretch; }
+    .about-container h2, .credibility-section h2 { font-size: clamp(30px, 5vw, 52px); line-height: 1.05; margin: 18px 0; letter-spacing: -2px; }
+    .about-container p { color: #dbeafe; line-height: 1.8; font-size: 16px; margin-bottom: 16px; }
+    .about-card, .credibility-card, .home-feature-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 28px;
+      padding: 26px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+    .about-card h3, .credibility-card h3, .home-feature-card h3 { margin-bottom: 12px; }
+    .about-card ul { padding-left: 20px; }
+    .about-card li, .credibility-card p, .home-feature-card p { color: #dbeafe; line-height: 1.7; font-size: 14px; }
+
+    .credibility-grid, .home-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .credibility-section > p { color: #dbeafe; line-height: 1.7; margin: -4px 0 22px; max-width: 700px; }
+    .credibility-icon { width: 42px; height: 42px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.13); margin-bottom: 14px; font-size: 20px; }
+    .home-features { width: min(1180px, 94%); margin: 55px auto 0; }
+
+    .app-shell { min-height: 100vh; display: grid; grid-template-columns: 360px 1fr; }
+    .sidebar { background: linear-gradient(160deg, #070b18, #172554); color: white; padding: 34px; display: flex; flex-direction: column; justify-content: space-between; }
+    .brand { font-size: 30px; font-weight: 950; letter-spacing: -1px; margin-bottom: 14px; }
+    .tagline { color: #cbd5e1; line-height: 1.7; font-size: 15px; }
+    .side-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); padding: 20px; border-radius: 22px; margin-top: 28px; }
+    .side-card h3 { margin-bottom: 10px; font-size: 17px; }
+    .side-card li { color: #dbeafe; line-height: 1.6; font-size: 14px; }
+    .side-card ul { padding-left: 18px; margin-top: 10px; }
+
+    .main { background: radial-gradient(circle at top left, rgba(37,99,235,0.2), transparent 26%), linear-gradient(135deg, #eef2ff, #f8fafc); padding: 26px; display: flex; align-items: center; justify-content: center; }
+    .chat-window { width: min(920px, 100%); height: min(780px, 92vh); background: white; border-radius: 32px; box-shadow: 0 28px 80px rgba(15,23,42,0.22); overflow: hidden; display: flex; flex-direction: column; border: 1px solid #e2e8f0; }
+    .chat-header { padding: 20px 24px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; gap: 14px; background: rgba(255,255,255,0.92); }
+    .assistant-info { display: flex; align-items: center; gap: 12px; }
+    .assistant-info h2 { font-size: 20px; }
+    .assistant-info p { color: #64748b; font-size: 13px; margin-top: 3px; }
+    .status { background: #dcfce7; color: #166534; padding: 8px 12px; border-radius: 999px; font-size: 13px; font-weight: 850; }
+    .back-btn { border: none; background: #e2e8f0; color: #0f172a; padding: 10px 14px; border-radius: 12px; font-weight: 850; cursor: pointer; transition: 0.2s ease; }
+    .back-btn:hover { background: #cbd5e1; }
+
+    .messages { flex: 1; padding: 24px; overflow-y: auto; background: linear-gradient(180deg, #f8fafc, #eef2ff); display: flex; flex-direction: column; gap: 15px; }
+    .message { max-width: 82%; padding: 14px 16px; border-radius: 20px; line-height: 1.55; font-size: 15px; animation: messageIn 0.28s ease; }
+    @keyframes messageIn { from { transform: translateY(8px) scale(0.98); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+    .bot { background: white; border: 1px solid #e2e8f0; align-self: flex-start; border-bottom-left-radius: 7px; box-shadow: 0 10px 22px rgba(15,23,42,0.05); }
+    .user { background: linear-gradient(135deg, #2563eb, #4f46e5); color: white; align-self: flex-end; border-bottom-right-radius: 7px; box-shadow: 0 12px 24px rgba(37,99,235,0.24); }
+    .welcome-card { background: linear-gradient(135deg, #eff6ff, #ffffff); border: 1px solid #bfdbfe; border-radius: 22px; padding: 18px; color: #1e293b; }
+    .welcome-card strong { color: #1d4ed8; }
+
+    .typing { width: fit-content; color: #64748b; display: flex; gap: 5px; align-items: center; }
+    .typing-dot { width: 7px; height: 7px; background: #94a3b8; border-radius: 50%; animation: typingBounce 1s infinite ease-in-out; }
+    .typing-dot:nth-child(2) { animation-delay: 0.16s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.32s; }
+    @keyframes typingBounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.45; } 40% { transform: translateY(-5px); opacity: 1; } }
+
+    .chat-actions { border-top: 1px solid #e2e8f0; padding: 18px 20px; background: white; }
+    .option-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+    .option-btn { border: 1px solid #cbd5e1; background: #f8fafc; color: #0f172a; padding: 11px 14px; border-radius: 999px; cursor: pointer; font-weight: 800; font-size: 14px; transition: 0.18s ease; }
+    .option-btn:hover { border-color: #2563eb; color: #2563eb; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(37,99,235,0.1); }
+    .option-btn.selected { background: #dbeafe; color: #1d4ed8; border-color: #2563eb; }
+    .continue-btn { background: linear-gradient(135deg, #2563eb, #4f46e5) !important; color: white !important; border-color: #2563eb !important; }
+    .input-row { display: flex; gap: 10px; }
+    .input-row input { flex: 1; padding: 14px 15px; border: 1px solid #cbd5e1; border-radius: 16px; font-size: 15px; outline: none; }
+    .input-row input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+    .send-btn { border: none; background: linear-gradient(135deg, #2563eb, #4f46e5); color: white; border-radius: 16px; padding: 0 20px; font-weight: 900; cursor: pointer; transition: 0.2s ease; }
+    .send-btn:hover { transform: translateY(-1px); }
+
+    .results-wrapper { margin-top: 8px; display: flex; flex-direction: column; gap: 20px; }
+    .result-card { background: white; border: 1px solid #dbeafe; border-radius: 26px; padding: 22px; box-shadow: 0 16px 38px rgba(15,23,42,0.07); }
+    .result-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+    .result-card h3 { font-size: 23px; letter-spacing: -0.5px; }
+    .score { display: inline-flex; background: linear-gradient(135deg, #dbeafe, #ede9fe); color: #1d4ed8; padding: 8px 12px; border-radius: 999px; font-weight: 950; white-space: nowrap; }
+    .result-card p, .result-card li { color: #475569; line-height: 1.6; font-size: 14px; }
+    .skill-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+    .skill-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 15px; }
+    .skill-box strong { display: block; margin-bottom: 10px; color: #0f172a; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-chip { padding: 7px 10px; border-radius: 999px; font-size: 13px; font-weight: 800; }
+    .have-chip { background: #dcfce7; color: #166534; }
+    .gap-chip { background: #fef3c7; color: #92400e; }
+    .improve-box { margin-top: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 15px; }
+    .improve-box ul { padding-left: 20px; margin-top: 8px; }
+    .job-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+    .job-links a, .restart-btn { text-decoration: none; background: linear-gradient(135deg, #2563eb, #4f46e5); color: white; border: none; padding: 12px 14px; border-radius: 14px; font-size: 13px; font-weight: 900; cursor: pointer; transition: 0.2s ease; }
+    .job-links a:hover, .restart-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37,99,235,0.22); }
+    .restart-btn { background: #0f172a; margin-top: 24px; display: inline-flex; align-items: center; justify-content: center; padding: 14px 20px; border-radius: 16px; }
+    .restart-container { display: flex; justify-content: center; padding-top: 18px; border-top: 1px solid #e2e8f0; margin-top: 12px; }
+
+    @media (max-width: 900px) {
+      .home-hero, .home-features, .about-container, .credibility-grid { grid-template-columns: 1fr; }
+      .home-page { padding: 20px 12px; }
+      .home-content h1 { letter-spacing: -1.5px; }
+      .nav-links a { display: none; }
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .main { padding: 12px; }
+      .chat-window { height: 96vh; border-radius: 22px; }
+      .message { max-width: 94%; }
+      .skill-layout { grid-template-columns: 1fr; }
+      .result-top { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <section class="home-page" id="homePage">
+    <nav class="home-nav">
+      <div class="home-logo">Ascend</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#why">Why Ascend</a>
+        <button class="nav-btn" onclick="startAscend()">Chat with Mira</button>
+      </div>
+    </nav>
+
+    <div class="home-hero">
+      <div class="home-content">
+        <span class="home-pill">✦ AI Career Assistant for Students</span>
+        <h1>Stop guessing your career path.<br><span class="gradient-text">Meet Mira, your AI career guide.</span></h1>
+        <p>Ascend helps students discover internships and entry-level jobs that match their background, skills, interests, and goals through a natural chatbot experience.</p>
+        <div class="home-buttons">
+          <button class="primary-home-btn" onclick="startAscend()">Chat with Mira</button>
+          <a class="secondary-home-btn" href="#about">About Us</a>
+        </div>
+      </div>
+
+      <div class="home-preview-card">
+        <div class="preview-header">
+          <div class="mira-avatar">M</div>
+          <div>
+            <h3>Mira</h3>
+            <p>Online • AI Career Assistant</p>
+          </div>
+        </div>
+        <div class="preview-chat bot-preview">Hi! I’m Mira. Tell me your skills and interests, and I’ll suggest roles that match you.</div>
+        <div class="preview-chat user-preview">Python, SQL, AI, research, leadership</div>
+        <div class="preview-chat bot-preview">Great. Your top matches could be AI/ML Intern, Data Analyst Intern, and Product Intern.</div>
+      </div>
+    </div>
+
+    <section class="about-section" id="about">
+      <div class="about-container">
+        <div>
+          <span class="home-pill">About Ascend</span>
+          <h2>What does Ascend do?</h2>
+          <p>Ascend is a student-focused AI career platform designed to help students navigate internships and entry-level job opportunities in a smarter, more personalized way.</p>
+          <p>Through its AI chatbot, <strong>Mira</strong>, Ascend understands a student’s academic background, skills, interests, work preferences, and career goals. Based on this profile, it recommends suitable career paths, required skills, skill gaps, and direct links to live job listings.</p>
+          <p>Instead of feeling like a generic career quiz, Ascend works like a guided conversation with a career mentor.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>How Mira Helps</h3>
+          <ul>
+            <li>Personalizes recommendations based on student profiles.</li>
+            <li>Suggests internships and jobs aligned with skills and interests.</li>
+            <li>Allows multiple skills, interests, and custom inputs.</li>
+            <li>Provides required skills, skill gaps, and live job links.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="credibility-section" id="why">
+      <span class="home-pill">Why Students Use Ascend</span>
+      <h2>Career guidance that feels personal.</h2>
+      <p>Ascend is built for students who do not just need another job board — they need direction, clarity, and a smarter way to understand where they fit.</p>
+      <div class="credibility-grid">
+        <div class="credibility-card">
+          <div class="credibility-icon">🎯</div>
+          <h3>Personalized Recommendations</h3>
+          <p>Get opportunity suggestions based on your actual profile, not generic career categories.</p>
+        </div>
+        <div class="credibility-card">
+          <div class="credibility-icon">🤖</div>
+          <h3>AI-Guided Career Matching</h3>
+          <p>Mira understands your interests, skills, and work style before recommending career paths.</p>
+        </div>
+        <div class="credibility-card">
+          <div class="credibility-icon">🔗</div>
+          <h3>Live Opportunities</h3>
+          <p>Access internship and job listings through direct links to trusted platforms.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="home-features" id="features">
+      <div class="home-feature-card">
+        <h3>Conversational Flow</h3>
+        <p>Students interact with Mira instead of filling a boring career quiz.</p>
+      </div>
+      <div class="home-feature-card">
+        <h3>Multi-Select Answers</h3>
+        <p>Users can choose multiple skills, interests, and work styles, plus type custom answers.</p>
+      </div>
+      <div class="home-feature-card">
+        <h3>Skill Gap Guidance</h3>
+        <p>Ascend shows what students already have and what they need to improve.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="app-shell hidden" id="appShell">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">Ascend</div>
+        <p class="tagline">An AI-style career assistant that talks with students, understands their background, and guides them toward matching internships and job opportunities.</p>
+        <div class="side-card">
+          <h3>How Ascend Works</h3>
+          <ul>
+            <li>Conversational chatbot experience</li>
+            <li>Button replies plus typed answers</li>
+            <li>Multi-skill matching logic</li>
+            <li>Required skills and skill gaps</li>
+            <li>Live job search redirects</li>
+          </ul>
+        </div>
+      </div>
+      <p class="tagline">Built for students who need direction, not just another job board.</p>
+    </aside>
+
+    <main class="main">
+      <section class="chat-window">
+        <div class="chat-header">
+          <div class="assistant-info">
+            <div class="avatar">M</div>
+            <div>
+              <h2>Mira</h2>
+              <p>AI-powered career guide for students</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button onclick="goHome()" class="back-btn">← Back</button>
+            <div class="status">Online</div>
+          </div>
+        </div>
+
+        <div class="messages" id="messages"></div>
+
+        <div class="chat-actions">
+          <div class="option-grid" id="optionGrid"></div>
+          <div class="input-row">
+            <input id="userInput" placeholder="Type your answer here..." onkeydown="handleEnter(event)" />
+            <button class="send-btn" onclick="sendTypedAnswer()">Send</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const messages = document.getElementById("messages");
+    const optionGrid = document.getElementById("optionGrid");
+    const userInput = document.getElementById("userInput");
+
+    const profile = { background: "", skills: [], interests: [], workStyle: [], opportunity: "Internship" };
+
+    const careerMap = {
+      ai: { title: "AI/ML Intern", keywords: "machine learning intern", skills: ["Python", "Machine Learning", "Deep Learning", "TensorFlow", "PyTorch", "Data Science", "NLP", "Computer Vision"], interests: ["ai", "automation", "models", "research", "problem solving", "technology"], gaps: ["Build 2-3 ML projects", "Learn model evaluation", "Create a GitHub portfolio", "Practice Python and ML libraries"] },
+      data: { title: "Data Analyst Intern", keywords: "data analyst intern", skills: ["Excel", "SQL", "Power BI", "Tableau", "Python", "Statistics", "Analytics", "Data Visualization"], interests: ["data", "insights", "dashboards", "business intelligence", "analysis"], gaps: ["Improve SQL", "Create dashboard projects", "Practice Excel/Power BI", "Learn data storytelling"] },
+      software: { title: "Software Developer Intern", keywords: "software developer intern", skills: ["JavaScript", "Java", "Python", "React", "HTML", "CSS", "Node.js", "APIs"], interests: ["building apps", "software", "websites", "coding", "products"], gaps: ["Build full-stack projects", "Learn Git/GitHub", "Practice DSA basics", "Deploy a web app"] },
+      cyber: { title: "Cybersecurity Intern", keywords: "cybersecurity intern", skills: ["Cybersecurity", "Networking", "Linux", "Security Fundamentals", "Ethical Hacking", "Cloud Security", "Risk Analysis"], interests: ["security", "networks", "hacking", "protecting systems", "privacy"], gaps: ["Learn networking basics", "Practice Linux commands", "Study security fundamentals", "Try beginner labs like TryHackMe"] },
+      ux: { title: "UI/UX Design Intern", keywords: "ui ux design intern", skills: ["Figma", "Wireframing", "User Research", "Prototyping", "UX Design", "UI Design", "Design Thinking"], interests: ["design", "apps", "creativity", "user experience", "product design"], gaps: ["Create Figma case studies", "Learn user research", "Build a design portfolio", "Practice wireframing"] },
+      business: { title: "Business Analyst Intern", keywords: "business analyst intern", skills: ["Communication", "Excel", "Documentation", "Requirements Gathering", "Management", "Leadership", "Presentation Skills"], interests: ["business", "strategy", "operations", "management", "consulting"], gaps: ["Improve documentation", "Learn Excel analysis", "Practice presentation skills", "Understand business requirements"] },
+      marketing: { title: "Digital Marketing Intern", keywords: "digital marketing intern", skills: ["Marketing", "SEO", "Social Media", "Content Strategy", "Canva", "Branding", "Communication", "Analytics"], interests: ["content", "brands", "social media", "campaigns", "creativity"], gaps: ["Learn SEO basics", "Build sample campaigns", "Practice content strategy", "Track social media metrics"] },
+      product: { title: "Product Management Intern", keywords: "product management intern", skills: ["Leadership", "Communication", "Strategy", "User Research", "Analytics", "Roadmapping", "Product Thinking", "Market Analysis"], interests: ["products", "startups", "business", "technology", "user experience", "strategy"], gaps: ["Learn product roadmaps", "Write product requirement documents", "Study user research", "Practice market analysis"] },
+      cloud: { title: "Cloud/DevOps Intern", keywords: "cloud devops intern", skills: ["AWS", "Azure", "Cloud", "Docker", "Kubernetes", "Linux", "DevOps", "CI/CD", "Networking"], interests: ["cloud", "infrastructure", "automation", "deployment", "systems"], gaps: ["Learn AWS or Azure basics", "Practice Linux", "Deploy a simple app", "Understand Docker fundamentals"] }
+    };
+
+    const steps = [
+      { key: "background", type: "single", bot: "Hi, I’m Mira, the AI assistant behind Ascend. I’ll ask a few quick questions and recommend career paths with live job links. First, what is your academic background?", options: ["Computer Science", "AI/ML", "Data Science", "Business", "Marketing", "Finance", "Design", "Healthcare", "Engineering", "Other"] },
+      { key: "skills", type: "multi", bot: "Great. Now select all the skills you have. You can choose multiple options, then click Continue. You can also type extra skills like Robotics, CAD, AWS, Public Speaking, etc.", options: ["Python", "Machine Learning", "SQL", "Excel", "Power BI", "Web Development", "JavaScript", "Cybersecurity", "Figma", "Marketing", "Cloud/AWS", "Leadership", "Communication", "Research", "Other"] },
+      { key: "interests", type: "multi", bot: "Nice. What are you interested in? Select multiple if needed, or type your own interests.", options: ["AI and automation", "Data analysis", "Building apps", "Cybersecurity", "UI/UX design", "Business strategy", "Digital marketing", "Cloud systems", "Startups/Product", "Research", "Healthcare technology", "Other"] },
+      { key: "workStyle", type: "multi", bot: "What type of work do you enjoy the most? You can select more than one.", options: ["Solving technical problems", "Analyzing data", "Designing user experiences", "Talking to people", "Managing projects", "Researching new ideas", "Building products", "Creating content", "Other"] },
+      { key: "opportunity", type: "single", bot: "Last question — what are you looking for right now?", options: ["Internship", "Entry-level Job", "Either internship or job"] }
+    ];
+
+    let stepIndex = 0;
+    let selectedOptions = [];
+
+    function addMessage(text, sender = "bot") {
+      const div = document.createElement("div");
+      div.className = `message ${sender}`;
+      div.innerHTML = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function showTypingThen(callback) {
+      const typing = document.createElement("div");
+      typing.className = "message bot typing";
+      typing.innerHTML = `<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>`;
+      messages.appendChild(typing);
+      messages.scrollTop = messages.scrollHeight;
+      setTimeout(() => { typing.remove(); callback(); }, 650);
+    }
+
+    function renderStep() {
+      const step = steps[stepIndex];
+      selectedOptions = [];
+      showTypingThen(() => addMessage(step.bot, "bot"));
+      optionGrid.innerHTML = "";
+
+      step.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = option;
+        btn.onclick = step.type === "multi" ? () => toggleMultiOption(btn, option) : () => handleAnswer(option);
+        optionGrid.appendChild(btn);
+      });
+
+      if (step.type === "multi") {
+        const continueBtn = document.createElement("button");
+        continueBtn.className = "option-btn continue-btn";
+        continueBtn.textContent = "Continue";
+        continueBtn.onclick = () => continueMultiStep();
+        optionGrid.appendChild(continueBtn);
+      }
+
+      userInput.placeholder = step.type === "multi" ? "Type extra answers separated by commas..." : "Type your answer here...";
+    }
+
+    function toggleMultiOption(button, option) {
+      if (selectedOptions.includes(option)) {
+        selectedOptions = selectedOptions.filter(item => item !== option);
+        button.classList.remove("selected");
+      } else {
+        selectedOptions.push(option);
+        button.classList.add("selected");
+      }
+    }
+
+    function continueMultiStep() {
+      const typed = userInput.value.trim();
+      let finalAnswers = [...selectedOptions];
+      if (typed) finalAnswers = [...finalAnswers, ...typed.split(",").map(item => item.trim()).filter(Boolean)];
+      if (finalAnswers.length === 0) return;
+      userInput.value = "";
+      handleAnswer(finalAnswers.join(", "));
+    }
+
+    function handleAnswer(answer) {
+      addMessage(answer, "user");
+      saveAnswer(answer);
+      stepIndex++;
+      if (stepIndex < steps.length) renderStep();
+      else {
+        optionGrid.innerHTML = "";
+        userInput.classList.add("hidden");
+        document.querySelector(".send-btn").classList.add("hidden");
+        showTypingThen(() => { addMessage("Thanks. I analyzed your profile and found the strongest matches for you.", "bot"); showResults(); });
+      }
+    }
+
+    function sendTypedAnswer() {
+      const answer = userInput.value.trim();
+      if (!answer) return;
+      userInput.value = "";
+      handleAnswer(answer);
+    }
+
+    function handleEnter(event) { if (event.key === "Enter") sendTypedAnswer(); }
+
+    function saveAnswer(answer) {
+      const key = steps[stepIndex].key;
+      if (["skills", "interests", "workStyle"].includes(key)) profile[key] = answer.split(",").map(item => item.trim().toLowerCase()).filter(Boolean);
+      else profile[key] = answer.toLowerCase();
+    }
+
+    function calculateMatches() {
+      const profileText = [profile.background, profile.opportunity, ...profile.skills, ...profile.interests, ...profile.workStyle].join(" ").toLowerCase();
+      return Object.entries(careerMap).map(([key, career]) => {
+        let score = 0;
+        career.skills.forEach(skill => { if (profileText.includes(skill.toLowerCase())) score += 4; });
+        career.interests.forEach(interest => { if (profileText.includes(interest.toLowerCase())) score += 3; });
+        if (profile.background.includes("computer") || profile.background.includes("ai") || profile.background.includes("data")) if (["ai", "data", "software", "cyber", "cloud"].includes(key)) score += 3;
+        if (profile.background.includes("business") || profile.background.includes("finance")) if (["business", "marketing", "product", "data"].includes(key)) score += 3;
+        if (profile.background.includes("design")) if (["ux", "product", "marketing"].includes(key)) score += 3;
+        return { key, ...career, score };
+      }).sort((a, b) => b.score - a.score).slice(0, 3);
+    }
+
+    function getSkillStatus(requiredSkills) {
+      const profileText = [...profile.skills, ...profile.interests, ...profile.workStyle, profile.background].join(" ").toLowerCase();
+      const have = requiredSkills.filter(skill => profileText.includes(skill.toLowerCase()));
+      const missing = requiredSkills.filter(skill => !profileText.includes(skill.toLowerCase()));
+      return { have: have.length ? have : ["Strong interest alignment"], missing: missing.length ? missing : ["No major gaps found"] };
+    }
+
+    function showResults() {
+      const matches = calculateMatches();
+      const bestScore = matches[0].score || 1;
+      const cards = matches.map(match => {
+        const percent = Math.max(58, Math.min(96, Math.round((match.score / bestScore) * 92)));
+        const encoded = encodeURIComponent(match.keywords);
+        const status = getSkillStatus(match.skills);
+        return `
+          <div class="result-card">
+            <div class="result-top">
+              <div>
+                <h3>${match.title}</h3>
+                <p>This role fits your conversation with Mira based on your background, interests, and selected skills.</p>
+              </div>
+              <span class="score">${percent}% Match</span>
+            </div>
+
+            <div class="skill-layout">
+              <div class="skill-box">
+                <strong>You already have</strong>
+                <div class="skill-list">${status.have.map(skill => `<span class="skill-chip have-chip">✔ ${skill}</span>`).join("")}</div>
+              </div>
+              <div class="skill-box">
+                <strong>Skills to improve</strong>
+                <div class="skill-list">${status.missing.slice(0, 5).map(skill => `<span class="skill-chip gap-chip">⚠ ${skill}</span>`).join("")}</div>
+              </div>
+            </div>
+
+            <div class="improve-box">
+              <strong>Suggested Improvements</strong>
+              <ul>${match.gaps.map(gap => `<li>${gap}</li>`).join("")}</ul>
+            </div>
+
+            <div class="job-links">
+              <a target="_blank" href="https://www.linkedin.com/jobs/search/?keywords=${encoded}">LinkedIn Jobs</a>
+              <a target="_blank" href="https://www.indeed.com/jobs?q=${encoded}">Indeed Jobs</a>
+              <a target="_blank" href="https://www.google.com/search?q=${encoded}%20jobs%20internships">Google Jobs</a>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      addMessage(`
+        <div class="welcome-card"><strong>Mira’s recommendation summary:</strong> Here are your top matches with what you already have, what to improve, and where to search next.</div>
+        <div class="results-wrapper">
+          ${cards}
+          <div class="restart-container"><button class="restart-btn" onclick="restartApp()">Start Over</button></div>
+        </div>
+      `, "bot");
+    }
+
+    function restartApp() {
+      messages.innerHTML = "";
+      optionGrid.innerHTML = "";
+      userInput.classList.remove("hidden");
+      document.querySelector(".send-btn").classList.remove("hidden");
+      profile.background = ""; profile.skills = []; profile.interests = []; profile.workStyle = []; profile.opportunity = "Internship";
+      stepIndex = 0;
+      renderStep();
+    }
+
+    function goHome() {
+      document.getElementById("appShell").classList.add("hidden");
+      document.getElementById("homePage").classList.remove("hidden");
+    }
+
+    function startAscend() {
+      document.getElementById("homePage").classList.add("hidden");
+      document.getElementById("appShell").classList.remove("hidden");
+      if (messages.children.length === 0) {
+        addMessage(`<div class="welcome-card"><strong>Welcome to Ascend.</strong><br>I’m Mira. I’ll guide you through a few quick questions and then show career matches, skill gaps, and live job links.</div>`, "bot");
+        renderStep();
+      }
+    }
+  </script>
+</body>
+</html>
